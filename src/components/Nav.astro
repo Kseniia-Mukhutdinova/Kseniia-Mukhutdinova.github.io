@@ -1,0 +1,16 @@
+---
+import { EMAIL, url } from '../lib/url';
+
+interface Props {
+  variant: 'home' | 'case';
+}
+
+const { variant } = Astro.props;
+---
+
+<header class:list={['nav', `nav--${variant}`, { 'nav--surface': variant === 'home' }]}>
+  <div class="container nav__inner">
+    <a class="nav__name" href={url()} aria-label="Kseniia Mukhutdinova — home">Kseniia Mukhutdinova</a>
+    <a class="nav__email link-plain" href={`mailto:${EMAIL}`}>{EMAIL}</a>
+  </div>
+</header>

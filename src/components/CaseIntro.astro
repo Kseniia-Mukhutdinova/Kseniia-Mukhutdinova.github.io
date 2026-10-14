@@ -1,0 +1,65 @@
+---
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  /** Figma title box width; forces the same line break on desktop */
+  titleMaxWidth?: number;
+  lead: string;
+  cover: ImageMetadata;
+  coverAlt: string;
+  coverRounded?: boolean;
+  facts: { label: string; value: string }[];
+}
+
+const { eyebrow, title, titleMaxWidth, lead, cover, coverAlt, coverRounded = true, facts } = Astro.props;
+---
+
+<section class="case-hero" aria-labelledby="case-title">
+  <div class="container case-hero__inner">
+    <p class="t-label c-accent" data-reveal>{eyebrow}</p>
+    <h1
+      id="case-title"
+      class="t-display-l"
+      style={titleMaxWidth ? `max-width:${titleMaxWidth}px; --reveal-delay: 80ms` : '--reveal-delay: 80ms'}
+      data-reveal
+    >
+      {title}
+    </h1>
+    <p class="case-hero__lead t-body-l c-secondary" data-reveal style="--reveal-delay: 160ms">{lead}</p>
+  </div>
+</section>
+
+<div class="cover">
+  <div class="container cover__inner">
+    <div class:list={['cover__media', { 'radius-28': coverRounded }]} data-reveal="fade" style="--reveal-delay: 200ms">
+      <Picture
+        src={cover}
+        alt={coverAlt}
+        formats={['avif', 'webp']}
+        fallbackFormat="webp"
+        widths={[640, 1120, 1680, 2240]}
+        sizes="(max-width: 1199px) calc(100vw - 80px), 1120px"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
+  </div>
+</div>
+
+<section class="snapshot-wrap" aria-label="Project facts">
+  <div class="container snapshot__inner">
+    <dl class="snapshot" data-reveal>
+      {
+        facts.map((fact) => (
+          <div class="snapshot__item">
+            <dt class="t-meta c-tertiary">{fact.label}</dt>
+            <dd class="t-body-m">{fact.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>

@@ -1,0 +1,311 @@
+---
+import { Picture } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import CaseIntro from '../../components/CaseIntro.astro';
+import Decision from '../../components/Decision.astro';
+import Panel from '../../components/Panel.astro';
+import Shot from '../../components/Shot.astro';
+import Outcome from '../../components/Outcome.astro';
+
+import cover from '../../assets/case1/cover.png';
+import lessonBefore from '../../assets/case1/lesson-before.png';
+import lessonAfter1 from '../../assets/case1/lesson-after-1.png';
+import lessonAfter2 from '../../assets/case1/lesson-after-2.png';
+import settingsBefore from '../../assets/case1/settings-before.png';
+import settingsAfter1 from '../../assets/case1/settings-after-1.png';
+import settingsAfter2 from '../../assets/case1/settings-after-2.png';
+import paywall from '../../assets/case1/paywall.png';
+import payment1 from '../../assets/case1/payment-1.png';
+import payment2 from '../../assets/case1/payment-2.png';
+import login from '../../assets/case1/login.png';
+import homeEmpty from '../../assets/case1/home-empty.png';
+import homeCourses from '../../assets/case1/home-courses.png';
+import websiteDesktop from '../../assets/case1/website-desktop.png';
+import websitePhone1 from '../../assets/case1/website-phone-1.png';
+import websitePhone2 from '../../assets/case1/website-phone-2.png';
+import designSystem from '../../assets/case1/design-system.png';
+
+const constraints = [
+  ['New field, few references', 'Few similar products existed, so I had to design the structure from scratch.'],
+  ['Pre-launch', 'No users yet, so I based my decisions on research.'],
+  ['A loud existing brand', 'Many bright colors competing for attention on every surface.'],
+  ['A small dev team', 'Solutions had to be realistic to build.'],
+];
+---
+
+<Base
+  title="Multiple Recall — Case Study · Kseniia Mukhutdinova"
+  description="Shaping a pre-launch AI study app into its first shippable version: UX audit, missing flows, a meaning-based color system and a design system."
+>
+  <CaseIntro
+    eyebrow="Case Study 01 · Multiple Recall"
+    title="Shaping a pre-launch AI study app into its first shippable version"
+    lead="I audited the full user journey, designed the missing flows, built the design system, and created the app’s talking mascot animations for a pre-launch AI product with a loud brand."
+    cover={cover}
+    coverAlt="Three redesigned Multiple Recall screens — home, course upload and paywall — around the app's brain mascot on a purple background"
+    facts={[
+      { label: 'Role', value: 'Product Designer' },
+      { label: 'Team', value: 'Founder + small dev team' },
+      { label: 'Timeframe', value: 'Sep 2025 – present' },
+      { label: 'Platform', value: 'iOS app + Web' },
+    ]}
+  />
+
+  <section class="case-section" style="--st: 52px; --sb: 52px" aria-labelledby="problem-title">
+    <div class="container">
+      <div class="text-block text-block--narrow">
+        <p class="t-label c-tertiary" data-reveal>The Problem</p>
+        <h2 id="problem-title" class="t-h1" data-reveal>A pre-launch product with a loud brand</h2>
+        <p class="t-body-l c-secondary" data-reveal>
+          Multiple Recall turns a student’s study files into an AI-built course for exam preparation.
+        </p>
+        <p class="t-body-l c-secondary" data-reveal>
+          The existing flows needed improvement, the user journey had gaps and unclear steps. It was also a new kind of product with few competitors to reference, and it carried a loud brand (many bright colors) that made a usable interface hard.
+        </p>
+        <p class="t-body-l c-secondary" data-reveal>
+          My job: get the product to a first version students could actually use, with a clear, consistent experience.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section" style="--st: 20px; --sb: 52px" aria-labelledby="constraints-title">
+    <div class="container text-block">
+      <h2 id="constraints-title" class="t-label c-tertiary" data-reveal>Constraints &amp; goal</h2>
+      <ul class="constraints" data-reveal-group="80">
+        {
+          constraints.map(([title, text]) => (
+            <li class="constraint" data-reveal>
+              <h3 class="t-body-m">{title}</h3>
+              <p class="t-body-s c-secondary">{text}</p>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="t-body-l" data-reveal>Goal: a coherent, launchable v1 with a logical structure and clear flows.</p>
+    </div>
+  </section>
+
+  <section class="case-section" style="--st: 52px; --sb: 40px" aria-labelledby="decisions-title">
+    <div class="container">
+      <div class="case-section__head">
+        <p class="t-label c-tertiary" data-reveal>Key Decisions &amp; Trade-offs</p>
+        <h2 id="decisions-title" class="t-h1" data-reveal>Three decisions that I made</h2>
+      </div>
+      <div class="decisions">
+        <Decision
+          number="01"
+          title="Turn a loud brand into a meaningful color system"
+          tension="The brand had many bright colors; using them everywhere destroyed hierarchy and readability."
+          did="Removed bright colors from backgrounds, kept one primary brand color for main actions, and gave the other colors specific meanings (for example cyan = premium / subscription), so color became information, not noise."
+          result="A consistent visual language; color now signals meaning."
+          tradeoff="I gave up the loud, colorful brand presence on every screen and gained a clean, usable interface where color guides the user."
+        />
+        <Decision
+          number="02"
+          title="Redesign the lesson flow to teach the method and give clear feedback"
+          tension="The lesson had to show the brand’s “special memorization method”, make structure predictable (always 7 tasks), give clear right/wrong feedback, and let a stuck student get help."
+          did="Made the lesson always show its 7 tasks explicitly, added clear correct / incorrect states, and left room for future scaling to include a chat with the mascot so a stuck student can discuss the answer."
+          result="Concepts approved and partially implemented."
+          tradeoff="I gave up the simplicity of an abstract progress bar and committed to a fixed, transparent 7-task structure, less flexible, but it sets clear expectations and reinforces the brand’s method."
+        />
+        <Decision
+          number="03"
+          title="Rebuild a settings screen into a clear menu structure"
+          tension="Settings lived on a single screen on a bright background: long, scroll-heavy, with many sections crammed together."
+          did="I split it into a simple menu as the entry screen, then gave each menu item its own dedicated screen."
+          result="A calmer, more scannable settings area with a predictable structure users can move through."
+          tradeoff="I traded seeing everything at once for one extra tap, but each screen now holds a single clear topic, so information reads easily and navigation is far simpler."
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section" style="--st: 56px; --sb: 32px" aria-labelledby="solution-title">
+    <div class="container">
+      <div class="text-block text-block--narrow">
+        <p class="t-label c-tertiary" data-reveal>Final Solution &amp; UI</p>
+        <h2 id="solution-title" class="t-h1" data-reveal>The shipped experience</h2>
+        <p class="t-body-l c-secondary" data-reveal>
+          The redesign closed the gaps in the journey and gave the product a consistent, launchable surface, from onboarding to the lesson flow and the paywall.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="container gallery">
+    <Shot caption="Redesigned lesson flow — always 7 tasks, clear right / wrong feedback">
+      <Panel
+        tone="purple"
+        cols="416 1fr"
+        phonesTop={47}
+        columns={[
+          {
+            title: 'Before redesign',
+            textWidth: 324,
+            text: [
+              'No clear progress through the lesson.',
+              'Answer options use different visual styles.',
+              'Logo as a button to a lesson options.',
+              'Feedback is limited and unclear.',
+            ],
+            phones: [{ src: lessonBefore, alt: 'Original lesson screen: a fill-in-the-blanks task with mixed answer styles and no progress indicator' }],
+          },
+          {
+            title: 'After redesign',
+            textWidth: 565,
+            text: [
+              'One consistent answer-selection pattern makes interactions easier to understand.',
+              'Actionable feedback shows the correct answer and provides an explanation.',
+              'Clear next steps guide the user through the flow.',
+              'Clear visual states distinguish default, selected, correct, and incorrect answers.',
+            ],
+            phones: [
+              { src: lessonAfter1, alt: 'Redesigned lesson task with a 7-step progress row and consistent answer chips' },
+              { src: lessonAfter2, alt: 'Redesigned lesson showing the “Correct!” feedback state with options to explain the answer or continue' },
+            ],
+          },
+        ]}
+      />
+    </Shot>
+
+    <Shot caption="Redesigned settings">
+      <Panel
+        tone="purple"
+        cols="416 1fr"
+        phonesTop={47}
+        columns={[
+          {
+            title: 'Before redesign',
+            text: 'A single screen combined profile information, account settings, information about subscription and preferences, making the structure difficult to scan.',
+            phones: [{ src: settingsBefore, alt: 'Original settings: one long yellow screen with every setting stacked together' }],
+          },
+          {
+            title: 'After redesign',
+            text: 'Information is organized by user intent and distributed across dedicated screens, creating a clearer hierarchy and reducing cognitive load.',
+            phones: [
+              { src: settingsAfter1, alt: 'Redesigned profile menu listing profile, subscription, payment methods, courses and notifications' },
+              { src: settingsAfter2, alt: 'Dedicated notification settings screen with toggles' },
+            ],
+          },
+        ]}
+      />
+    </Shot>
+
+    <Shot caption="Paywall — subscription value made clear">
+      <Panel
+        tone="teal"
+        cols="416 1fr"
+        phonesTop={32}
+        columns={[
+          {
+            title: 'Paywall screen',
+            phones: [{ src: paywall, alt: 'Paywall listing Multiple Recall+ benefits and semester and yearly plans' }],
+          },
+          {
+            title: 'Payment screens',
+            phones: [
+              { src: payment1, alt: 'Payment method selection: card, PayPal, Apple Pay, Google Pay' },
+              { src: payment2, alt: 'Card payment form with card number, expiry date and security code' },
+            ],
+          },
+        ]}
+      />
+    </Shot>
+
+    <div class="shot-row">
+      <Shot caption="Log-in / sign-up">
+        <Panel
+          tone="purple"
+          frameWidth={390}
+          cols="1fr"
+          padLeft={55}
+          padRight={55}
+          padY={62}
+          padYStack={62}
+          phonesTop={20}
+          columns={[
+            {
+              title: 'Log-in / sign-up in one place',
+              phones: [{ src: login, alt: 'Combined log-in and sign-up screen with email, Google and Apple options' }],
+            },
+          ]}
+        />
+      </Shot>
+      <Shot caption="Homepage">
+        <Panel
+          tone="purple"
+          frameWidth={714}
+          cols="324 1fr"
+          padLeft={55}
+          padRight={55}
+          padY={62}
+          phonesTop={20}
+          columns={[
+            {
+              title: 'Without any course',
+              phones: [{ src: homeEmpty, alt: 'Empty home state inviting the student to create a first course' }],
+            },
+            {
+              title: 'With courses',
+              phones: [{ src: homeCourses, alt: 'Home with continue-learning card and the list of ongoing exams' }],
+            },
+          ]}
+        />
+      </Shot>
+    </div>
+
+    <Shot caption="Website">
+      <div class="media-grid">
+        <div class="radius-28">
+          <Picture
+            src={websiteDesktop}
+            alt="Multiple Recall landing page “Train your brain, not your eyes.” on a laptop"
+            formats={['avif', 'webp']}
+            fallbackFormat="webp"
+            widths={[640, 1120, 1680, 2240]}
+            sizes="(max-width: 1199px) calc(100vw - 40px), 1120px"
+            loading="lazy"
+          />
+        </div>
+        <div class="radius-28">
+          <Picture
+            src={websitePhone1}
+            alt="Mobile landing page: “Ready to ace your next exam?” with App Store and browser links"
+            formats={['avif', 'webp']}
+            fallbackFormat="webp"
+            widths={[400, 555, 1110]}
+            sizes="(max-width: 479px) calc(100vw - 40px), (max-width: 1199px) 50vw, 555px"
+            loading="lazy"
+          />
+        </div>
+        <div class="radius-28">
+          <Picture
+            src={websitePhone2}
+            alt="Mobile landing page section explaining the Multiple Recall learning method"
+            formats={['avif', 'webp']}
+            fallbackFormat="webp"
+            widths={[400, 555, 1110]}
+            sizes="(max-width: 479px) calc(100vw - 40px), (max-width: 1199px) 50vw, 555px"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </Shot>
+
+    <Shot
+      caption="Design system — components and the meaning-based color palette"
+      src={designSystem}
+      alt="Multiple Recall design system: color, typography and spacing foundations, core components and documentation pages"
+    />
+  </div>
+
+  <Outcome
+    title="Approved and partly shipped"
+    points={[
+      'Concepts approved by the founder and partially implemented.',
+      'The founder valued the design thinking and the structure I brought.',
+      'Intended impact: a launchable, easy-to-use app.',
+    ]}
+  />
+</Base>

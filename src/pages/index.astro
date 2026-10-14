@@ -1,0 +1,125 @@
+---
+import { Picture } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import CaseCard from '../components/CaseCard.astro';
+import { url } from '../lib/url';
+
+import portrait from '../assets/home/ksenia-face.png';
+import case1Cover from '../assets/home/case1-cover.png';
+import case2Cover from '../assets/home/case2-cover.png';
+import IconSystem from '../assets/icons/system.svg';
+import IconPath from '../assets/icons/path.svg';
+import IconCode from '../assets/icons/code.svg';
+
+const strengths = [
+  {
+    Icon: IconSystem,
+    title: 'Systematization',
+    text: 'I bring order to products and build the reusable systems to keep consistency.',
+  },
+  {
+    Icon: IconPath,
+    title: 'End-to-end flows',
+    text: 'From understanding the problem and the users to high-quality screens.',
+  },
+  {
+    Icon: IconCode,
+    title: 'Front-end background',
+    text: 'HTML, CSS & JavaScript in my toolkit, so I design what\'s realistic to build.',
+  },
+];
+---
+
+<Base
+  variant="home"
+  title="Kseniia Mukhutdinova — Product Designer"
+  description="Product designer who brings structure and clarity to complex products. 2 years across ed-tech and AI products, based in Passau, Germany."
+>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="container hero__inner">
+      <p class="hero__hi" data-reveal>
+        <span class="t-display-l">Hi,</span>
+        <span class="hero__highlight t-display-l">I am Kseniia</span>
+      </p>
+      <h1 id="hero-title" class="hero__title t-display-xl" data-reveal style="--reveal-delay: 80ms">
+        Product designer who brings structure and clarity to complex products.
+      </h1>
+      <p class="hero__lead t-body-l c-secondary" data-reveal style="--reveal-delay: 160ms">
+        2 years across ed-tech and AI products. I bring structure to products, shaping them into systematic, scalable, and clear, buildable experiences — working closely with founders and small dev teams.
+      </p>
+      <ul class="chips" data-reveal style="--reveal-delay: 240ms">
+        <li class="chip">Based in Passau, Germany</li>
+        <li class="chip">Authorized to work in Germany</li>
+        <li class="chip">German C1 · English B2</li>
+      </ul>
+      <div class="hero__portrait" data-reveal="fade" style="--reveal-delay: 200ms">
+        <Picture
+          src={portrait}
+          alt="Portrait of Kseniia Mukhutdinova"
+          formats={['avif', 'webp']}
+          fallbackFormat="webp"
+          widths={[340, 423, 640, 846]}
+          sizes="(max-width: 767px) min(78vw, 340px), (max-width: 1199px) 36vw, 423px"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="work-label">
+    <div class="container">
+      <h2 id="work-label" class="section__label t-label c-tertiary" data-reveal>01 — Selected Work</h2>
+      <div class="work__list">
+        <CaseCard
+          href={url('case-studies/multiple-recall/')}
+          meta="AI / Ed-tech / iOS & Web"
+          title="Shaping a pre-launch AI study app into its first shippable version"
+          text="Audited the full journey, designed the missing flows, built the design system, and created the app’s talking mascot animations."
+          tags={['#Product_thinking', '#Design_system', '#UI_craft']}
+          cover={case1Cover}
+          coverAlt="Multiple Recall paywall screen on an iPhone over the app's purple and cyan brand illustration"
+        />
+        <CaseCard
+          href={url('case-studies/oabat/')}
+          meta="Job platform / B2B & B2C / iOS & Web"
+          title="Redesigning a Bavaria-only job platform to scale across Germany"
+          text="Designed the national expansion and built the company’s first design system — 60+ components with documentation."
+          tags={['#Product_thinking', '#Design_system', '#Scaling']}
+          cover={case2Cover}
+          coverAlt="Oabat app search results with a media-first job card on an iPhone"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="pov" aria-label="What I believe">
+    <div class="container pov__inner">
+      <p class="t-label c-accent" data-reveal>What I believe</p>
+      <blockquote class="pov__quote t-display-l" data-reveal style="--reveal-delay: 80ms">
+        Good structure is invisible — you only feel it when it’s missing. My job is to make products feel obvious.
+      </blockquote>
+      <p class="pov__sign" data-reveal="fade" style="--reveal-delay: 200ms">Kseniia</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="how-label">
+    <div class="container how__inner">
+      <h2 id="how-label" class="t-label c-tertiary" data-reveal>02 — How I work</h2>
+      <p class="how__statement t-h1" data-reveal>
+        I fully immerse myself in the product’s context — the business goal, the user, the constraints and design solutions a team can actually build.
+      </p>
+      <ul class="strengths" data-reveal-group="100">
+        {
+          strengths.map(({ Icon, title, text }) => (
+            <li class="strength" data-reveal>
+              <Icon class="strength__icon" aria-hidden="true" />
+              <h3 class="t-h3">{title}</h3>
+              <p class="t-body c-secondary">{text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</Base>

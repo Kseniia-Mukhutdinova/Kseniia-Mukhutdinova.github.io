@@ -1,0 +1,38 @@
+---
+interface Props {
+  number: string;
+  title: string;
+  tension: string;
+  did: string;
+  result: string;
+  tradeoff: string;
+}
+
+const { number, title, tension, did, result, tradeoff } = Astro.props;
+const rows = [
+  ['Tension', tension],
+  ['What I did', did],
+  ['Result', result],
+];
+---
+
+<article class="decision" data-reveal>
+  <p class="t-meta c-accent">Decision {number}</p>
+  <h3 class="t-h3">{title}</h3>
+  <dl class="decision__body">
+    <div class="decision__rows">
+      {
+        rows.map(([key, value]) => (
+          <div class="decision__row">
+            <dt class="decision__key t-meta c-tertiary">{key}</dt>
+            <dd class="decision__value t-body c-secondary">{value}</dd>
+          </div>
+        ))
+      }
+    </div>
+    <div class="decision__row decision__row--tradeoff">
+      <dt class="decision__key t-meta c-accent">Trade-off</dt>
+      <dd class="decision__value t-body">{tradeoff}</dd>
+    </div>
+  </dl>
+</article>

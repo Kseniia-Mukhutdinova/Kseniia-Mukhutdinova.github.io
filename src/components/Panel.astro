@@ -1,0 +1,105 @@
+---
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+export interface PanelColumn {
+  title: string;
+  /** a paragraph, or a list of bullet points */
+  text?: string | string[];
+  /** Figma text-box width in px (scaled with the panel) */
+  textWidth?: number;
+  phones: { src: ImageMetadata; alt: string }[];
+}
+
+interface Props {
+  tone: 'purple' | 'teal' | 'surface';
+  columns: PanelColumn[];
+  /** grid-template-columns in Figma px, e.g. "416 1fr" → widths scale with the panel */
+  cols: string;
+  /** Figma frame width the geometry below refers to */
+  frameWidth?: number;
+  padLeft?: number;
+  padRight?: number;
+  padY?: number;
+  padYStack?: number;
+  /** gap between text and phones, px in the design */
+  phonesTop?: number;
+  phoneGap?: number;
+  phoneWidth?: number;
+  /** exports with a drop shadow around a 280px device */
+  shadow?: boolean;
+  rounded?: boolean;
+}
+
+const {
+  tone,
+  columns,
+  cols,
+  frameWidth = 1120,
+  padLeft = 52,
+  padRight = 52,
+  padY = 44,
+  padYStack = 28,
+  phonesTop = 40,
+  phoneGap = 40,
+  phoneWidth = 280,
+  shadow = true,
+  rounded = true,
+} = Astro.props;
+
+const gridCols = cols
+  .split(' ')
+  .map((c) => (c.endsWith('fr') ? `minmax(0, ${c})` : `calc(${c} * var(--u))`))
+  .join(' ');
+
+const style = [
+  `--fw:${frameWidth}`,
+  `--cols:${gridCols}`,
+  `--pl:${padLeft}`,
+  `--pr:${padRight}`,
+  `--py:${padY}`,
+  `--py-stack:${padYStack}px`,
+  `--pt:${phonesTop}`,
+  `--pg:${phoneGap}`,
+  `--pw:${phoneWidth}`,
+].join(';');
+---
+
+<div class="panel-wrap">
+  <div class:list={['panel', `panel--${tone}`, { 'radius-28': rounded }]} style={style}>
+    {
+      columns.map((col) => (
+        <div class="panel__col" style={col.textWidth ? `--tw:${col.textWidth}` : undefined}>
+          <div class="panel__head">
+            <h3 class="panel__title">{col.title}</h3>
+            {typeof col.text === 'string' && <p class="panel__text">{col.text}</p>}
+            {Array.isArray(col.text) && (
+              <div class="panel__text">
+                <ul>
+                  {col.text.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+          <div class="panel__phones">
+            {col.phones.map((phone) => (
+              <div class:list={['phone', { 'phone--shadow': shadow, 'phone--wide': !shadow }]}>
+                <Picture
+                  src={phone.src}
+                  alt={phone.alt}
+                  formats={['avif', 'webp']}
+                  fallbackFormat="webp"
+                  widths={[320, 640, 900]}
+                  sizes="(max-width: 767px) 46vw, 314px"
+                  loading="lazy"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</div>

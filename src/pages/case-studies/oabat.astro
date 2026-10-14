@@ -1,0 +1,170 @@
+---
+import Base from '../../layouts/Base.astro';
+import CaseIntro from '../../components/CaseIntro.astro';
+import Decision from '../../components/Decision.astro';
+import Panel from '../../components/Panel.astro';
+import Shot from '../../components/Shot.astro';
+import Outcome from '../../components/Outcome.astro';
+
+import cover from '../../assets/case2/cover.png';
+import designSystem from '../../assets/case2/design-system.png';
+import stepsSearch from '../../assets/case2/steps-search.png';
+import filterBefore from '../../assets/case2/filter-before.png';
+import filterAfter1 from '../../assets/case2/filter-after-1.png';
+import filterAfter2 from '../../assets/case2/filter-after-2.png';
+import homeBefore from '../../assets/case2/home-before.png';
+import homeAfter from '../../assets/case2/home-after.png';
+---
+
+<Base
+  title="Oabat — Case Study · Kseniia Mukhutdinova"
+  description="Redesigning a Bavaria job platform to scale across Germany, and building its first design system: 60+ components with documentation."
+>
+  <CaseIntro
+    eyebrow="Case Study 02 · Oabat"
+    title="Redesigning a Bavaria job platform to scale across Germany"
+    titleMaxWidth={750}
+    lead="I designed the expansion of a media-first job platform and built its first design system: 60+ components with documentation."
+    cover={cover}
+    coverRounded={false}
+    coverAlt="Oabat redesign on iPhone and desktop: search-first home with media-rich job cards and the headline “Dein nächster Job ist nur einen Klick entfernt”"
+    facts={[
+      { label: 'Role', value: 'Product Designer' },
+      { label: 'Team', value: 'Founder + small dev team' },
+      { label: 'Timeframe', value: 'Apr – Sep 2025' },
+      { label: 'Platform', value: 'iOS app + Web' },
+    ]}
+  />
+
+  <section class="case-section" style="--st: 44px; --sb: 40px" aria-labelledby="decisions-title">
+    <div class="container">
+      <div class="case-section__head">
+        <p class="t-label c-tertiary" data-reveal>Key Decisions &amp; Trade-offs</p>
+        <h2 id="decisions-title" class="t-h1" data-reveal>Three decisions that I made</h2>
+      </div>
+      <div class="decisions">
+        <Decision
+          number="01"
+          title="Build a design system that favors reuse"
+          tension="No system existed, but the small dev team couldn’t rebuild everything from scratch."
+          did="Created the company’s first design system (60+ components with documentation) deliberately reusing and standardizing existing patterns rather than replacing them."
+          result="A reusable component library and documentation the team can build on."
+          tradeoff="I gave up designing the ideal interface from scratch and gained a system three developers could actually implement and scale."
+        />
+        <Decision
+          number="02"
+          title="A 3-step search form"
+          tension="Expanding to all of Germany and all job types means far more to filter; a single long form would overwhelm young users."
+          did="Broke search into three guided steps."
+          result="A search flow that scales to a national catalog."
+          tradeoff="I gave up fewer clicks and gained clarity and a less overwhelming experience for pupils and students."
+        />
+        <Decision
+          number="03"
+          title="Redesign the job card, keep the media-first feature"
+          tension="The card had to work at national scale and show a company’s value, but the media-first approach is the product’s unique differentiator and had to stay."
+          did="Redesigned the job card so the value of a listing is visible (supporting paid listings) while preserving the media-first feature."
+          result="A card that supports the business goal without losing the product’s identity."
+          tradeoff="I balanced information density and business value against keeping the distinctive media-first simplicity."
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section" style="--st: 56px; --sb: 32px" aria-labelledby="solution-title">
+    <div class="container">
+      <div class="text-block text-block--864">
+        <p class="t-label c-tertiary" data-reveal>Final Solution &amp; UI</p>
+        <h2 id="solution-title" class="t-h1" data-reveal>The redesign</h2>
+        <p class="t-body-l c-secondary" data-reveal>
+          The work centered on three deliverables: a national-scale search, a redesigned job card that keeps the media-first identity, and the design system that makes it all buildable.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="container gallery gallery--loose">
+    <Shot
+      caption="Design system, 60+ components with documentation"
+      src={designSystem}
+      rounded={false}
+      alt="Oabat design system: colors, typography, spacing, buttons, form controls, badges, tags, search field and documentation pages"
+    />
+
+    <Shot
+      caption="3-step search, a national catalog made approachable"
+      src={stepsSearch}
+      rounded={false}
+      alt="Three-step job search on iPhone: choose location, search by role or company, then pick the job type"
+    />
+
+    <Shot caption="Redesigned filter">
+      <Panel
+        tone="surface"
+        rounded={false}
+        cols="416 1fr"
+        phonesTop={25}
+        columns={[
+          {
+            title: 'Before redesign',
+            textWidth: 351,
+            text: [
+              'Different filter types used inconsistent UI patterns',
+              'The hierarchy between filter categories was weak, making the screen harder to scan.',
+            ],
+            phones: [{ src: filterBefore, alt: 'Original filter: one screen mixing dropdown pills, toggles and sliders' }],
+          },
+          {
+            title: 'After redesign',
+            textWidth: 530,
+            text: [
+              'Filters are grouped into clear categories, making the structure easier to scan and understand.',
+              'The filter experience is split across dedicated screens, allowing more options without overwhelming the user.',
+            ],
+            phones: [
+              { src: filterAfter1, alt: 'Redesigned filter with grouped sections for work location, industry, salary and posting date' },
+              { src: filterAfter2, alt: 'Second filter screen for posting date, distance, employment type and education level' },
+            ],
+          },
+        ]}
+      />
+    </Shot>
+
+    <Shot caption="Redesigned homepage">
+      <Panel
+        tone="surface"
+        rounded={false}
+        cols="506 1fr"
+        padLeft={148}
+        padRight={56}
+        phonesTop={32}
+        phoneGap={0}
+        phoneWidth={313}
+        shadow={false}
+        columns={[
+          {
+            title: 'Before redesign',
+            textWidth: 410,
+            text: 'A visually dense feed where search, categories and job information competed for attention, making results difficult to scan and compare.',
+            phones: [{ src: homeBefore, alt: 'Original home feed: full-bleed video card with category icons and dense overlays' }],
+          },
+          {
+            title: 'After redesign',
+            textWidth: 410,
+            text: 'A structured, search-first experience with clear content hierarchy and scannable cards that display the most relevant job information upfront.',
+            phones: [{ src: homeAfter, alt: 'Redesigned search-first home with a structured job card showing employer, location, salary and response time' }],
+          },
+        ]}
+      />
+    </Shot>
+  </div>
+
+  <Outcome
+    title="Approved, with a design system delivered"
+    padBottom={90}
+    points={[
+      'The design system was delivered as a reusable component library with documentation.',
+      'The redesign set the product up to scale without losing its media-first identity.',
+    ]}
+  />
+</Base>

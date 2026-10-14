@@ -1,0 +1,43 @@
+---
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  caption: string;
+  /** single image shot; omit and use the default slot for composed content */
+  src?: ImageMetadata;
+  alt?: string;
+  rounded?: boolean;
+  /** CSS sizes hint for the image */
+  sizes?: string;
+}
+
+const {
+  caption,
+  src,
+  alt = '',
+  rounded = true,
+  sizes = '(max-width: 1199px) calc(100vw - 40px), 1120px',
+} = Astro.props;
+---
+
+<figure class="shot" data-reveal>
+  {
+    src ? (
+      <div class:list={['shot__media', { 'radius-28': rounded }]}>
+        <Picture
+          src={src}
+          alt={alt}
+          formats={['avif', 'webp']}
+          fallbackFormat="webp"
+          widths={[640, 1120, 1680, 2240]}
+          sizes={sizes}
+          loading="lazy"
+        />
+      </div>
+    ) : (
+      <slot />
+    )
+  }
+  <figcaption class="shot__caption">{caption}</figcaption>
+</figure>

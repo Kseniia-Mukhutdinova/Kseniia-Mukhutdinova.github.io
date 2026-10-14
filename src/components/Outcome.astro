@@ -1,0 +1,19 @@
+---
+interface Props {
+  title: string;
+  points: string[];
+  padBottom?: number;
+}
+
+const { title, points, padBottom = 56 } = Astro.props;
+---
+
+<section class="outcome" aria-labelledby="outcome-title">
+  <div class="outcome__inner" style={`padding-bottom:${padBottom}px`}>
+    <p class="t-label c-tertiary" data-reveal>Outcome &amp; Impact</p>
+    <h2 id="outcome-title" class="t-h1" data-reveal>{title}</h2>
+    <ul class="outcome__list t-body-l" data-reveal>
+      {points.map((point) => <li>{point}</li>)}
+    </ul>
+  </div>
+</section>
