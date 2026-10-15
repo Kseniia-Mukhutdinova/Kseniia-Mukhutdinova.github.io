@@ -1,0 +1,45 @@
+---
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import BlurLift from './BlurLift.astro';
+
+/** Smaller card for projects hosted on Behance (opens in a new tab). */
+interface Props {
+  href: string;
+  meta: string;
+  title: string;
+  text: string;
+  cover: ImageMetadata;
+  coverAlt: string;
+}
+
+const { href, meta, title, text, cover, coverAlt } = Astro.props;
+---
+
+<article class="project-card" data-card data-reveal>
+  <!-- Makes the whole card clickable; hidden from keyboard and screen readers (the real link is below). -->
+  <a class="card-overlay" href={href} target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true"></a>
+  <div class="project-card__cover">
+    <Picture
+      src={cover}
+      alt={coverAlt}
+      formats={['avif', 'webp']}
+      fallbackFormat="webp"
+      widths={[288, 432, 576, 861]}
+      sizes="(max-width: 599px) calc(100vw - 88px), (max-width: 899px) 40vw, 288px"
+      loading="lazy"
+    />
+  </div>
+  <div class="project-card__body">
+    <p class="t-meta c-tertiary">{meta}</p>
+    <h3 class="project-card__title">{title}</h3>
+    <p class="project-card__text c-secondary">{text}</p>
+  </div>
+  <div class="project-card__cta">
+    <a class="link-arrow bl-trigger" href={href} target="_blank" rel="noopener noreferrer">
+      <BlurLift text="View case on Behance" /><span class="arrow" aria-hidden="true">→</span><span
+        class="visually-hidden">: {title} (opens in a new tab)</span
+      >
+    </a>
+  </div>
+</article>

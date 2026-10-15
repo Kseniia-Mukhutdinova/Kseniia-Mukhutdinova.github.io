@@ -9,7 +9,7 @@ import '../styles/global.css';
 
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-import { url } from '../lib/url';
+import { EMAIL, url } from '../lib/url';
 
 interface Props {
   title: string;
@@ -53,9 +53,24 @@ const ogImage = new URL(url('og.png'), Astro.site);
     </main>
     <Footer />
 
+    <!-- Shown after an email link copies the address (see scripts/email-copy.ts) -->
+    <div class="toast" data-email-toast role="status" aria-live="polite" hidden>
+      <svg class="toast__icon" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
+        <circle cx="10" cy="10" r="10" fill="currentColor" />
+        <path d="M6 10.2l2.6 2.6L14 7.4" fill="none" stroke="#1a1917" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <div class="toast__body">
+        <p class="toast__title">Email copied to clipboard</p>
+        <p class="toast__text">{EMAIL}</p>
+      </div>
+      <button class="toast__close" type="button" data-email-toast-close aria-label="Close">×</button>
+    </div>
+
     <script>
       import { initReveal } from '../scripts/reveal';
+      import { initEmailCopy } from '../scripts/email-copy';
       initReveal();
+      initEmailCopy();
     </script>
   </body>
 </html>

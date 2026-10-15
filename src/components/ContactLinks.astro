@@ -1,0 +1,48 @@
+---
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+import BlurLift from './BlurLift.astro';
+import { EMAIL, LINKEDIN, RESUME_FILE, url } from '../lib/url';
+
+/** The contact links shared by the header and the footer, so both always stay identical. */
+interface Props {
+  class?: string;
+  label?: string;
+}
+
+const { class: className, label = 'Contact' } = Astro.props;
+
+// The resume link only renders once the PDF exists in /public, so the site never ships a broken download.
+const hasResume = existsSync(join(process.cwd(), 'public', RESUME_FILE));
+
+const actions = [
+  { full: 'Go to LinkedIn', short: 'LinkedIn', href: LINKEDIN, external: true },
+  { full: 'Send me an email', short: 'Email', href: `mailto:${EMAIL}` },
+  // opens the PDF in a new tab (the browser's viewer has its own download button)
+  ...(hasResume ? [{ full: 'Download Resume', short: 'Resume', href: url(RESUME_FILE), external: true }] : []),
+];
+---
+
+<nav aria-label={label}>
+  <ul class:list={['contact-links', className]}>
+    {
+      actions.map((a) => (
+        <li>
+          <a
+            class="link-line bl-trigger"
+            href={a.href}
+            aria-label={a.external ? `${a.full} (opens in a new tab)` : a.full}
+            {...(a.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+          >
+            <span class="contact-links__full">
+              <BlurLift text={a.full} />
+            </span>
+            <span class="contact-links__short" aria-hidden="true">
+              {a.short}
+            </span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>

@@ -17,7 +17,7 @@ const {
   src,
   alt = '',
   rounded = true,
-  sizes = '(max-width: 1199px) calc(100vw - 40px), 1120px',
+  sizes = '(max-width: 1199px) calc(100vw - 40px), (min-width: 1441px) min(calc(100vw - 320px), 1280px), 1120px',
 } = Astro.props;
 ---
 
@@ -30,7 +30,7 @@ const {
           alt={alt}
           formats={['avif', 'webp']}
           fallbackFormat="webp"
-          widths={[640, 1120, 1680, 2240]}
+          widths={[640, 1120, 1680, 2240, 2880]}
           sizes={sizes}
           loading="lazy"
         />

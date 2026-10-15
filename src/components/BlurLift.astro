@@ -1,0 +1,28 @@
+---
+/**
+ * Link label with the "letter lift" hover: each letter lifts up and rotates out while
+ * a copy rises in from below, staggered per letter. The animation is driven by the
+ * nearest `.bl-trigger` ancestor (a link or a whole card). Screen readers get the
+ * plain text once; the animated letters are hidden from them.
+ */
+interface Props {
+  text: string;
+}
+
+const { text } = Astro.props;
+const chars = [...text];
+const mid = (chars.length - 1) / 2;
+---
+
+<span class="bl"
+  ><span class="visually-hidden">{text}</span><span class="bl__word" aria-hidden="true" style={`--mid:${mid}`}
+    >{
+      chars.map((ch, i) => (
+        <span class="bl__ch" style={`--i:${i}`}>
+          <span class="bl__out">{ch === ' ' ? ' ' : ch}</span>
+          <span class="bl__in">{ch === ' ' ? ' ' : ch}</span>
+        </span>
+      ))
+    }</span
+  ></span
+>

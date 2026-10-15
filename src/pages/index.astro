@@ -1,15 +1,55 @@
 ---
-import { Picture } from 'astro:assets';
+import { getImage } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import CaseCard from '../components/CaseCard.astro';
+import ProjectCard from '../components/ProjectCard.astro';
 import { url } from '../lib/url';
 
-import portrait from '../assets/home/ksenia-face.png';
+import portrait from '../assets/home/ksenia-portrait.png';
 import case1Cover from '../assets/home/case1-cover.png';
 import case2Cover from '../assets/home/case2-cover.png';
+import jaguarCover from '../assets/behance/jaguar.png';
+import kinowaveCover from '../assets/behance/kinowave.png';
+import academyCover from '../assets/behance/academy-oxford.png';
 import IconSystem from '../assets/icons/system.svg';
 import IconPath from '../assets/icons/path.svg';
 import IconCode from '../assets/icons/code.svg';
+
+// Portrait: hand-built <picture> so phones get a 1×1 placeholder instead of downloading the photo
+// (it is hidden on small screens to keep the first screen focused on the text).
+const portraitWidths = [520, 780, 1040];
+const portraitSizes = '(max-width: 1199px) 38vw, 520px';
+const [portraitAvif, portraitWebp] = await Promise.all(
+  (['avif', 'webp'] as const).map((format) => getImage({ src: portrait, format, widths: portraitWidths })),
+);
+const blankPixel = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+
+const projects = [
+  {
+    href: 'https://www.behance.net/gallery/192146317/JAGUAR-Corporate-website',
+    meta: 'Corporate website / Web',
+    title: 'Jaguar corporate website',
+    text: 'A concept redesign for Jaguar that conveys the brand’s scale and exclusivity through bold type and cinematic photography.',
+    cover: jaguarCover,
+    coverAlt: 'Jaguar website concept: “Jaguar — the art of performance” over a dark purple car photo',
+  },
+  {
+    href: 'https://www.behance.net/gallery/209997843/KINOWAVE-Mobile-Cinema-App',
+    meta: 'Mobile app / iOS',
+    title: 'Mobile cinema app',
+    text: 'An online cinema app with a minimalist interface, personal recommendations and curated collections for effortless browsing.',
+    cover: kinowaveCover,
+    coverAlt: 'Kinowave app “My collection” screen on an iPhone next to an illustrated character on an orange background',
+  },
+  {
+    href: 'https://www.behance.net/gallery/186328287/Academy-Oxford-landing',
+    meta: 'Landing page / Web',
+    title: 'Landing page for language school',
+    text: 'A bright, playful landing page for a multilingual school, presenting courses, teachers and prices for kids and adults.',
+    cover: academyCover,
+    coverAlt: 'Academy Oxford landing page: “Multilingual school for children and adults” with language tags on a lilac background',
+  },
+];
 
 const strengths = [
   {
@@ -53,16 +93,18 @@ const strengths = [
         <li class="chip">German C1 · English B2</li>
       </ul>
       <div class="hero__portrait" data-reveal="fade" style="--reveal-delay: 200ms">
-        <Picture
-          src={portrait}
-          alt="Portrait of Kseniia Mukhutdinova"
-          formats={['avif', 'webp']}
-          fallbackFormat="webp"
-          widths={[340, 423, 640, 846]}
-          sizes="(max-width: 767px) min(78vw, 340px), (max-width: 1199px) 36vw, 423px"
-          loading="eager"
-          fetchpriority="high"
-        />
+        <picture>
+          <source media="(max-width: 767px)" srcset={blankPixel} />
+          <source type="image/avif" srcset={portraitAvif.srcSet.attribute} sizes={portraitSizes} />
+          <source type="image/webp" srcset={portraitWebp.srcSet.attribute} sizes={portraitSizes} />
+          <img
+            src={portraitWebp.src}
+            alt="Portrait of Kseniia Mukhutdinova"
+            width={portrait.width}
+            height={portrait.height}
+            fetchpriority="high"
+          />
+        </picture>
       </div>
     </div>
   </section>
@@ -90,6 +132,15 @@ const strengths = [
           coverAlt="Oabat app search results with a media-first job card on an iPhone"
         />
       </div>
+      <ul class="projects" aria-label="More projects on Behance">
+        {
+          projects.map((project) => (
+            <li>
+              <ProjectCard {...project} />
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </section>
 
@@ -122,4 +173,11 @@ const strengths = [
       </ul>
     </div>
   </section>
+
+  <script>
+    import { initCardHover } from '../scripts/card-hover';
+    import { trackNavHeight } from '../scripts/nav-height';
+    initCardHover();
+    trackNavHeight();
+  </script>
 </Base>
