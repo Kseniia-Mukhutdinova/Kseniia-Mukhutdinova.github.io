@@ -5,7 +5,7 @@ export function url(path = ''): string {
   return `${base}/${clean}`;
 }
 
-export const EMAIL = 'devksuksu@gmail.com';
+export const EMAIL = 'kseniia.mukh@gmail.com';
 export const LINKEDIN = 'https://www.linkedin.com/in/ksenia-mukhutdinova/';
 /** Put the PDF at public/<RESUME_FILE>; the nav shows "Download Resume" once it exists. */
 export const RESUME_FILE = 'Kseniia-Mukhutdinova-Resume.pdf';
